@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Subscription;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class SubscriptionController
@@ -11,19 +13,17 @@ use Illuminate\Http\Request;
 class SubscriptionController extends Controller
 {
     /**
+     * Saves a subscription in the database
+     *
      * @return /dashboard view
      */
     public function index()
     {
-        $channel_id = request('channel_id');
+        $subscription = new Subscription();
 
-        $user_id = \Auth::user()->id;
+        $subscription->channel_id = request('channel_id');
 
-        $subscription = new \App\Subscription();
-
-        $subscription->channel_id = $channel_id;
-
-        $subscription->user_id = $user_id;
+        $subscription->user_id = Auth::user()->id;
 
         $subscription->folder_id = null;
 
@@ -31,7 +31,7 @@ class SubscriptionController extends Controller
 
         $ytc = new YouTubeController();
 
-        $videos = $ytc->getVideos($channel_id);
+        $videos = $ytc->getVideos($subscription->channel_id);
 
         return view('dashboard', compact( 'videos'));
     }

@@ -13,6 +13,8 @@ class YouTubeController extends Controller
 {
 
     /**
+     * Gets channel information and videos from a form submission with channel url
+     *
      * @return /dashboard view
      */
     public function index()
@@ -29,6 +31,8 @@ class YouTubeController extends Controller
     }
 
     /**
+     * Gets 10 latest videos uploaded by a channel
+     *
      * @param string $channelId  Id for channel
      *
      * @return array
@@ -51,6 +55,8 @@ class YouTubeController extends Controller
     }
 
     /**
+     * gets a channel's information
+     *
      * @param string $channelId Id for channel
      *
      * @return array
@@ -72,6 +78,8 @@ class YouTubeController extends Controller
     }
 
     /**
+     * gets a channel's id
+     *
      * @param string $url url for youtube channel
      *
      * @return bool|string
@@ -90,6 +98,8 @@ class YouTubeController extends Controller
     }
 
     /**
+     * gets a channel's id by the channel's username
+     *
      * @param $username username for youtube channel
      *
      * @return string
