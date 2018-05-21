@@ -22,3 +22,5 @@ Route::get('/dashboard', 'DashboardController@index');
 Route::post('/youtube', 'YouTubeController@index');
 
 Route::post('/subscriptions', 'SubscriptionController@index');
+
+Route::post('/folders', 'FolderController@index');

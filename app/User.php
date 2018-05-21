@@ -5,6 +5,10 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * Class User
+ * @package App
+ */
 class User extends Authenticatable
 {
     use Notifiable;
@@ -27,13 +31,23 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /**
+     * A user has many folders
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function folders()
     {
-        $this->hasMany(Folder::class);
+        return $this->hasMany(Folder::class);
     }
 
+    /**
+     * A user has many subscriptions
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function subscriptions()
     {
-        $this->hasMany(Folder::class);
+        return $this->hasMany(Subscription::class);
     }
 }
