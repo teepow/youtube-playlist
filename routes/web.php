@@ -18,9 +18,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/dashboard', 'DashboardController@index');
+Route::get('/dashboard/{id}', 'DashboardController@show');
 
-Route::post('/youtube', 'YouTubeController@index');
+Route::get('/youtube', 'YouTubeController@index');
 
-Route::post('/subscriptions', 'SubscriptionController@index');
+Route::post('/subscriptions', 'SubscriptionController@store');
+Route::get('/subscriptions/{subscription_id}/{folder_id}/edit', 'SubscriptionController@edit');
 
-Route::post('/folders', 'FolderController@index');
+Route::post('/folders', 'FolderController@store');

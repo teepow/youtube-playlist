@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Alaouy\Youtube\Facades\Youtube;
+use App\Subscription;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class YouTubeController
@@ -25,9 +27,13 @@ class YouTubeController extends Controller
 
         $channel = $this->getChannel($channelId);
 
-        $videos = $this->getVideos($channelId);
+        $user = Auth::user();
 
-        return view('dashboard', compact('channel', 'videos'));
+        $folders = $user->folders;
+
+        $no_folder_channels = $user->subscriptions()->whereNull('folder_id')->get();
+
+        return view('dashboard', compact('channel', 'folders', 'no_folder_channels'));
     }
 
     /**
@@ -44,14 +50,40 @@ class YouTubeController extends Controller
         $i = 0;
         foreach($videoList as $video) {
             $videoId = $video->id->videoId;
+
             $videos[$i]['thumbnail'] = Youtube::getVideoInfo($videoId)->snippet->thumbnails->high->url;
             $videos[$i]['title'] = Youtube::getVideoInfo($videoId)->snippet->title;
             $videos[$i]['description'] = Youtube::getVideoInfo($videoId)->snippet->description;
             $videos[$i]['id'] = $videoId;
+
+            //truncate description to 100 and add elipsis if string is longer 100 characters
+            if(strlen($videos[$i]['description']) >= 100)
+                $videos[$i]['description'] = substr($videos[$i]['description'], 0, 100) . '...';
+
+            //truncate title to 55 and add elipsis if string is longer 55 characters
+            if(strlen($videos[$i]['title']) >= 55)
+                $videos[$i]['title'] = substr($videos[$i]['title'], 0, 55) . '...';
+
             $i++;
         }
 
         return $videos;
+    }
+
+    /**
+     * gets the channel's name
+     *
+     * @param $channel_id
+     *
+     * @return string title of channel
+     */
+    public function getChannelName($channel_id)
+    {
+        $channelData = Youtube::getChannelById($channel_id);
+
+        $title = $channelData->snippet->title;
+
+        return $title;
     }
 
     /**

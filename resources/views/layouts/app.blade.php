@@ -41,8 +41,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <form class="form-inline mt-2 mt-md-0" method="post" action="/youtube">
-                    {{ csrf_field() }}
+                <form class="form-inline mt-2 mt-md-0" method="get" action="/youtube">
                     <input class="form-control mr-sm-2" type="text" placeholder="Search for channel..." aria-label="Search" name="url">
                     <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
                 </form>

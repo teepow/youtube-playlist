@@ -15,9 +15,9 @@ class FolderController extends Controller
     /**
      * Saves a folder in the database
      *
-     * @return redirect to /dashboard
+     * @return redirect back
      */
-    public function index()
+    public function store()
     {
         $folder = new Folder();
 
@@ -27,6 +27,6 @@ class FolderController extends Controller
 
         $folder->save();
 
-        return redirect('dashboard');
+        return back();
     }
 }

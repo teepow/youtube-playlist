@@ -17,7 +17,7 @@ class SubscriptionController extends Controller
      *
      * @return /dashboard view
      */
-    public function index()
+    public function store()
     {
         $subscription = new Subscription();
 
@@ -27,12 +27,32 @@ class SubscriptionController extends Controller
 
         $subscription->folder_id = null;
 
-        $subscription->save();
-
         $ytc = new YouTubeController();
 
-        $videos = $ytc->getVideos($subscription->channel_id);
+        $subscription->title = $ytc->getChannelName($subscription->channel_id);
 
-        return view('dashboard', compact( 'videos'));
+        $subscription->save();
+
+        return redirect('dashboard/' . $subscription->id);
+    }
+
+    /**
+     * Add subscription to folder.
+     * Changes the folder_id of the subscription in the database.
+     *
+     * @param $subscription_id
+     * @param $folder_id
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function edit($subscription_id, $folder_id)
+    {
+        $subscription = Subscription::find($subscription_id);
+
+        $subscription->folder_id = $folder_id;
+
+        $subscription->save();
+
+        return back();
     }
 }

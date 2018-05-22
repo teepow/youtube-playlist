@@ -18,6 +18,7 @@ class CreateSubscriptionsTable extends Migration
             $table->text('channel_id');
             $table->integer('folder_id')->nullable();
             $table->integer('user_id');
+            $table->text('title');
             $table->timestamps();
         });
     }

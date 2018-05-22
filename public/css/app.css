@@ -13,3 +13,26 @@
                                                                                                                                                small {
                                                                                                                                                    margin-left: 12px;
                                                                                                                                                }
+.dropdown-toggle {
+    width: 100%;
+    text-align: left;
+}
+
+.dropdown-toggle::after {
+    float: right;
+}
+
+.dropright {
+    padding-bottom: 10px;
+    padding-left: 10px;
+    width: 100%;
+}
+
+.sidebar-sticky {
+    padding-top: 3rem!important;
+}
+
+.btn-no-border {
+    border:0px solid transparent;
+    background-color: #f8f9fa!important;
+}
