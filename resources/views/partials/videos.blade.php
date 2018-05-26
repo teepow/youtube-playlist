@@ -6,8 +6,11 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                            <form action="/playlists/1/{{ $video['id'] }}" method="post">
+                                {{ csrf_field() }}
+                                <button type="submit" class="btn btn-sm btn-outline-secondary">View</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                            </form>
                         </div>
                     </div>
                     <br>

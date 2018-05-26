@@ -31,9 +31,9 @@ class YouTubeController extends Controller
 
         $folders = $user->folders;
 
-        $no_folder_channels = $user->subscriptions()->whereNull('folder_id')->get();
+        $no_folder_subscriptions = $user->subscriptions()->whereNull('folder_id')->get();
 
-        return view('dashboard', compact('channel', 'folders', 'no_folder_channels'));
+        return view('dashboard', compact('channel', 'folders', 'no_folder_subscriptions'));
     }
 
     /**

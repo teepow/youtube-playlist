@@ -34,9 +34,11 @@ class DashboardController extends Controller
 
         $folders = $user->folders;
 
-        $no_folder_channels = $user->subscriptions()->whereNull('folder_id')->get();
+        $playlist_id = session('playlist_id');
 
-        return view('dashboard', compact('folders', 'no_folder_channels'));
+        $no_folder_subscriptions = $user->subscriptions()->whereNull('folder_id')->get();
+
+        return view('dashboard', compact('folders', 'no_folder_subscriptions', 'playlist_id'));
     }
 
     /**
@@ -58,9 +60,9 @@ class DashboardController extends Controller
 
         $folders = $user->folders;
 
-        $no_folder_channels = $user->subscriptions()->whereNull('folder_id')->get();
+        $no_folder_subscriptions = $user->subscriptions()->whereNull('folder_id')->get();
 
-        return view('dashboard', compact('folders', 'no_folder_channels', 'videos'));
+        return view('dashboard', compact('folders', 'no_folder_subscriptions', 'videos'));
     }
 
 }

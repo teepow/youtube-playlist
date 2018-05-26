@@ -14,6 +14,9 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
+
+        $this->visit('/')->see('Laravel 5');
+
         $response = $this->get('/');
 
         $response->assertStatus(200);

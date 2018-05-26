@@ -50,4 +50,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Subscription::class);
     }
+
+    /**
+     * A user has many playlists
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function playlists()
+    {
+        return $this->hasMany(Playlist::class);
+    }
 }
