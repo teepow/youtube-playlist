@@ -29,4 +29,11 @@ class FolderController extends Controller
 
         return back();
     }
+
+    public function index()
+    {
+        $folders = Folder::all();
+
+        return $folders;
+    }
 }

@@ -27,4 +27,6 @@ Route::get('/subscriptions/{subscription_id}/{folder_id}/edit', 'SubscriptionCon
 
 Route::post('/folders', 'FolderController@store');
 
+Route::get('/folders', 'FolderController@index');
+
 Route::post('/playlists/{playlist_id}/{video_id}', 'PlaylistController@store');
