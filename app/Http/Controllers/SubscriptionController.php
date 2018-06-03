@@ -53,7 +53,13 @@ class SubscriptionController extends Controller
 
         $subscription->save();
 
-        return back();
+        $user = AuthController::getAuthenticatedUser();
+
+        $folders = $user->folders;
+
+        $folders->load('subscriptions');
+
+        return $folders;
     }
 
     public function noFolder()
