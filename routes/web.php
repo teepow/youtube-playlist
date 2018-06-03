@@ -22,6 +22,7 @@ Route::get('/dashboard/{id}', 'DashboardController@show');
 
 Route::get('/youtube', 'YouTubeController@index');
 
+Route::get('/subscriptions/no-folder', 'SubscriptionController@noFolder');
 Route::post('/subscriptions', 'SubscriptionController@store');
 Route::get('/subscriptions/{subscription_id}/{folder_id}/edit', 'SubscriptionController@edit');
 

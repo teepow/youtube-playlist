@@ -55,4 +55,13 @@ class SubscriptionController extends Controller
 
         return back();
     }
+
+    public function noFolder()
+    {
+        $user = AuthController::getAuthenticatedUser();
+
+        $no_folder_subscriptions = $user->subscriptions()->whereNull('folder_id')->get();
+
+        return $no_folder_subscriptions;
+    }
 }

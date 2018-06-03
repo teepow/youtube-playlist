@@ -32,7 +32,11 @@ class FolderController extends Controller
 
     public function index()
     {
-        $folders = Folder::all();
+        $user = AuthController::getAuthenticatedUser();
+
+        $folders = $user->folders;
+
+        $folders->load('subscriptions');
 
         return $folders;
     }
