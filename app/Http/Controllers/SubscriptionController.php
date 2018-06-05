@@ -37,31 +37,10 @@ class SubscriptionController extends Controller
     }
 
     /**
-     * Add subscription to folder.
-     * Changes the folder_id of the subscription in the database.
+     * get user's subscriptions that do not belong to a folder
      *
-     * @param $subscription_id
-     * @param $folder_id
-     *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return subscriptions with no folder
      */
-    public function edit($subscription_id, $folder_id)
-    {
-        $subscription = Subscription::find($subscription_id);
-
-        $subscription->folder_id = $folder_id;
-
-        $subscription->save();
-
-        $user = AuthController::getAuthenticatedUser();
-
-        $folders = $user->folders;
-
-        $folders->load('subscriptions');
-
-        return $folders;
-    }
-
     public function noFolder()
     {
         $user = AuthController::getAuthenticatedUser();
@@ -69,5 +48,63 @@ class SubscriptionController extends Controller
         $no_folder_subscriptions = $user->subscriptions()->whereNull('folder_id')->get();
 
         return $no_folder_subscriptions;
+    }
+
+    /**
+     * Delete subscription from database
+     *
+     * @param $subscription_id
+     * @return subscriptions with no folder or all folders
+     */
+    public function destroy($subscription_id)
+    {
+        Subscription::destroy($subscription_id);
+
+        return $this->getFoldersAndNoFolderSubsJSON();
+    }
+
+    /**
+     * Add subscription to folder.
+     * Changes the folder_id of the subscription in the database.
+     *
+     * @param $subscription_id
+     * @param $folder_id
+     *
+     * @return user's folders
+     */
+    public function edit($subscription_id, $folder_id)
+    {
+        $this->changeFolder($subscription_id, $folder_id);
+
+        return $this->getFoldersAndNoFolderSubsJSON();
+    }
+
+    public function editNoFolder($subscription_id)
+    {
+        $this->changeFolder($subscription_id, NULL);
+
+        return $this->getFoldersAndNoFolderSubsJSON();
+    }
+
+    private function changeFolder($subscription_id, $folder_id)
+    {
+        $subscription = Subscription::find($subscription_id);
+
+        $subscription->folder_id = $folder_id;
+
+        $subscription->save();
+
+    }
+
+    private function getFoldersAndNoFolderSubsJSON()
+    {
+        $no_folder_subscriptions =  $this->noFolder();
+
+        $fc = new FolderController();
+
+        $folders = $fc->index();
+
+        return response()->json(compact('no_folder_subscriptions', 'folders'));
+
     }
 }

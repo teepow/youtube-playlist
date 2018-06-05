@@ -27,7 +27,7 @@ class FolderController extends Controller
 
         $folder->save();
 
-        return back();
+        return $this->index();
     }
 
     public function index()
