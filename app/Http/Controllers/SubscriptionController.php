@@ -15,7 +15,7 @@ class SubscriptionController extends Controller
     /**
      * Saves a subscription in the database
      *
-     * @return /dashboard view
+     * @return subscriptions with no folder
      */
     public function store()
     {
@@ -23,7 +23,9 @@ class SubscriptionController extends Controller
 
         $subscription->channel_id = request('channel_id');
 
-        $subscription->user_id = Auth::user()->id;
+        $user = AuthController::getAuthenticatedUser();
+
+        $subscription->user_id = $user->id;
 
         $subscription->folder_id = null;
 
@@ -33,7 +35,7 @@ class SubscriptionController extends Controller
 
         $subscription->save();
 
-        return redirect('dashboard/' . $subscription->id);
+        return $this->noFolder();
     }
 
     /**

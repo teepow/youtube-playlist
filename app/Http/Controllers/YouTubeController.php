@@ -15,7 +15,9 @@ class YouTubeController extends Controller
 {
 
     /**
-     * Gets channel information and videos from a form submission with channel url
+     * Gets channel information from channel url
+     *
+     * A channel contains a banner (image url), title, description, id
      *
      * @return /dashboard view
      */
@@ -27,13 +29,7 @@ class YouTubeController extends Controller
 
         $channel = $this->getChannel($channelId);
 
-        $user = Auth::user();
-
-        $folders = $user->folders;
-
-        $no_folder_subscriptions = $user->subscriptions()->whereNull('folder_id')->get();
-
-        return view('dashboard', compact('channel', 'folders', 'no_folder_subscriptions'));
+        return $channel;
     }
 
     /**

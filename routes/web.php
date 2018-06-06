@@ -20,7 +20,7 @@ Auth::routes();
 Route::get('/dashboard', 'DashboardController@index');
 Route::get('/dashboard/{id}', 'DashboardController@show');
 
-Route::get('/youtube', 'YouTubeController@index');
+Route::post('/youtube', 'YouTubeController@index');
 
 Route::get('/subscriptions/no-folder', 'SubscriptionController@noFolder');
 Route::post('/subscriptions', 'SubscriptionController@store');
@@ -30,5 +30,6 @@ Route::delete('subscriptions/{subscription_id}', 'SubscriptionController@destroy
 
 Route::post('/folders', 'FolderController@store');
 Route::get('/folders', 'FolderController@index');
+Route::delete('/folders/{folder_id}', 'FolderController@destroy');
 
 Route::post('/playlists/{playlist_id}/{video_id}', 'PlaylistController@store');

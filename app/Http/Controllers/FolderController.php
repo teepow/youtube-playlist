@@ -40,4 +40,11 @@ class FolderController extends Controller
 
         return $folders;
     }
+
+    public function destroy($folder_id)
+    {
+        Folder::destroy($folder_id);
+
+        return $this->index();
+    }
 }
