@@ -21,13 +21,11 @@ class YouTubeController extends Controller
      *
      * @return /dashboard view
      */
-    public function index()
+    public function getChannel($url)
     {
-        $url = request('url');
-
         $channelId = $this->getChannelId($url);
 
-        $channel = $this->getChannel($channelId);
+        $channel = $this->getChannelInfo($channelId);
 
         return $channel;
     }
@@ -89,7 +87,7 @@ class YouTubeController extends Controller
      *
      * @return array
      */
-    private function getChannel($channelId)
+    private function getChannelInfo($channelId)
     {
         $channelData = Youtube::getChannelById($channelId);
 

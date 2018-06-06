@@ -17,10 +17,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/dashboard', 'DashboardController@index');
-Route::get('/dashboard/{id}', 'DashboardController@show');
+Route::get('/videos/{id}', 'VideoController@show');
 
-Route::post('/youtube', 'YouTubeController@index');
+Route::post('/channels', 'ChannelController@index');
 
 Route::get('/subscriptions/no-folder', 'SubscriptionController@noFolder');
 Route::post('/subscriptions', 'SubscriptionController@store');
