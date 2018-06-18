@@ -31,4 +31,6 @@ Route::post('/folders', 'FolderController@store');
 Route::get('/folders', 'FolderController@index');
 Route::delete('/folders/{folder_id}', 'FolderController@destroy');
 
-Route::post('/playlists/{playlist_id}/{video_id}', 'PlaylistController@store');
+Route::post('/playlists', 'PlaylistController@store');
+Route::get('/playlists', 'PlaylistController@index');
+Route::delete('/playlists/{playlist_id}', 'PlaylistController@destroy');

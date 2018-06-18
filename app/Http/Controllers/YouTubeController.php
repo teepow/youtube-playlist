@@ -39,7 +39,7 @@ class YouTubeController extends Controller
     }
 
     /**
-     * Gets 10 latest videos uploaded by a channel
+     * Gets 12 videos uploaded by a channel
      *
      * @param string $channelId  Id for channel
      *
@@ -47,7 +47,7 @@ class YouTubeController extends Controller
      */
     public function getVideos($channelId)
     {
-        $videoListResponse = Youtube::listChannelVideos($channelId, 10);
+        $videoListResponse = Youtube::listChannelVideos($channelId, 12);
 
         foreach($videoListResponse as $videoResponse)
             $videos[] = $this->getVideoInfo($videoResponse);

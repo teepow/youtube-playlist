@@ -6,37 +6,36 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Playlist;
 
-define('EMBEDDED_PLAYLIST_URL', 'https://www.youtube.com/embed/video_id?playlist=');
-
 class PlaylistController extends Controller
 {
-    public function store($playlist_id, $video_id)
+    public function store()
     {
         $playlist = new Playlist();
 
-        $playlist->user_id = Auth::user()->id;
+        $playlist->user_id = AuthController::getAuthenticatedUser()->id;
 
-        $playlist->video_id = $video_id;
+        $playlist->video_ids = request('video_ids');
 
-        $playlist->playlist_id = $playlist_id;
+        $playlist->name = request('playlist_name');
 
         $playlist->save();
 
-        session(['playlist_id' => $playlist_id]);
-
-        return redirect('dashboard');
+        return response()->json(['success' => 'success'], 200);
     }
 
-    public function insert($video_id)
+    public function index()
     {
-        $user_id = Auth::user()->id;
+        $user = AuthController::getAuthenticatedUser();
 
-        $playlist = New Playlist();
+        $playlists = $user->playlists;
 
-        $playlist->user_id = $user_id;
+        return $playlists;
+    }
 
-        $playlist->url = EMBEDDED_PLAYLIST_URL . $video_id;
+    public function destroy($playlist_id)
+    {
+        Playlist::destroy($playlist_id);
 
-        return back();
+        return response()->json(['success' => 'success'], 200);
     }
 }

@@ -14,11 +14,11 @@ class CreatePlaylistsTable extends Migration
     public function up()
     {
         Schema::create('playlists', function (Blueprint $table) {
-            $table->timestamps();
+            $table->increments('id');
             $table->integer('user_id');
-            $table->string('video_id');
-            $table->integer('playlist_id');
-            $table->primary(['video_id', 'playlist_id']);
+            $table->text('name');
+            $table->string('video_ids');
+            $table->timestamps();
         });
     }
 
