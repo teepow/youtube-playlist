@@ -14,7 +14,7 @@ class PlaylistController extends Controller
 
         $playlist->user_id = AuthController::getAuthenticatedUser()->id;
 
-        $playlist->video_ids = request('video_ids');
+        $playlist->video_ids = request('playlist_video_ids');
 
         $playlist->name = request('playlist_name');
 
